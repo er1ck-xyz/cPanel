@@ -1,4 +1,4 @@
-/* Dashboard Dark Glass, coeso com style.css */
+﻿
 :root {
   --sidebar-width: 260px;
   --header-height: 68px;
@@ -11,11 +11,11 @@ body.dashboard {
   background: linear-gradient(135deg, var(--bg1), var(--bg2));
   color: #e9f0fb;
   min-height: 100vh;
-  display: block; /* neutraliza display:flex do style.css */
-  position: relative; /* neutraliza position: fixed do style.css se existir */
+  display: block; 
+  position: relative; 
 }
 
-/* Partículas em tela cheia */
+
 #particles-js {
   position: fixed;
   inset: 0;
@@ -25,7 +25,7 @@ body.dashboard {
   pointer-events: none;
 }
 
-/* Overlay para menu mobile */
+
 .overlay {
   display: none;
   position: fixed;
@@ -38,7 +38,7 @@ body.dashboard {
   display: block;
 }
 
-/* Sidebar glass */
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -130,14 +130,14 @@ body.dashboard {
   border-color: rgba(0, 210, 255, 0.25);
 }
 
-/* Desktop fixa */
+
 @media (min-width: 1024px) {
   .sidebar {
     transform: translateX(0);
   }
 }
 
-/* Main wrapper */
+
 .main-content {
   position: relative;
   z-index: 1;
@@ -152,7 +152,7 @@ body.dashboard {
   }
 }
 
-/* Header glass */
+
 .header {
   position: sticky;
   top: 0;
@@ -271,7 +271,7 @@ body.dashboard {
   padding-top: 10px;
 }
 
-/* Page head */
+
 .page {
   padding: 16px;
 }
@@ -334,7 +334,7 @@ body.dashboard {
   }
 }
 
-/* Category title */
+
 .category-title {
   position: relative;
   padding-left: 16px;
@@ -353,7 +353,7 @@ body.dashboard {
   border-radius: 2px;
 }
 
-/* Grid */
+
 .consultations-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -371,7 +371,7 @@ body.dashboard {
   }
 }
 
-/* Cards glass */
+
 .consultation-card {
   text-decoration: none;
   color: #e9f0fb;
@@ -425,7 +425,7 @@ body.dashboard {
   font-size: 1.2rem;
 }
 
-/* Icon color variants */
+
 .icon-circle.blue {
   background: linear-gradient(135deg, #00d2ff, #3a7bd5);
 }
@@ -464,17 +464,18 @@ body.dashboard {
   background: linear-gradient(135deg, #f59e0b, #facc15);
 }
 
-/* Responsivo: sidebar off-canvas */
+
 @media (max-width: 1023.98px) {
   .main-content {
     margin-left: 0;
   }
 }
 
-/* Focus */
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent1);
   outline-offset: 2px;
   border-radius: 8px;
 }
+

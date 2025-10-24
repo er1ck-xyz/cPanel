@@ -1,6 +1,6 @@
-<?php
-// Lightweight KeyAuth Seller API helper
-// Uses credentials from credentials.php
+﻿<?php
+
+
 
 require_once __DIR__ . '/credentials.php';
 
@@ -11,10 +11,7 @@ if (!function_exists('keyauth_seller_base_url')) {
 }
 
 if (!function_exists('keyauth_seller_call')) {
-    /**
-     * Perform a GET request to KeyAuth Seller API.
-     * $format can be 'json' or 'text'. When 'json', returns associative array, otherwise raw string.
-     */
+    
     function keyauth_seller_call(string $type, array $params = [], string $format = 'json') {
         global $sellerkey;
         $sk = getenv('KEYAUTH_SELLER_KEY');
@@ -49,16 +46,12 @@ if (!function_exists('keyauth_seller_call')) {
             return $data;
         }
 
-        return $resp; // raw text
+        return $resp; 
     }
 }
 
 if (!function_exists('seller_create_licenses')) {
-    /**
-     * Create one or more license keys.
-     * Common parameters: expiry (in days), level (int), amount, mask pattern.
-     * Returns array with either JSON data or text under 'raw' key.
-     */
+    
     function seller_create_licenses(int $amount, int $expiry, int $level = 1, string $mask = '******-******-******-******-******-******', string $format = 'text') : array {
         $amount = max(1, min($amount, 100));
         $level = max(1, $level);
@@ -76,7 +69,7 @@ if (!function_exists('seller_create_licenses')) {
     }
 }
 
-// Convenience wrappers for common Seller API operations
+
 if (!function_exists('seller_verify_license')) {
     function seller_verify_license(string $key): array { return (array) keyauth_seller_call('verify', ['key'=>$key], 'json'); }
 }
@@ -115,3 +108,4 @@ if (!function_exists('seller_fetch_all')) {
 }
 
 ?>
+

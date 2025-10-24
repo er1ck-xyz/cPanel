@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 function conectarBanco() {
     static $pdo = null;
 
@@ -13,7 +13,7 @@ function conectarBanco() {
             $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Migração simples: garantir coluna 'ip' na tabela usuarios
+            
             try {
                 $pdo->exec("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS ip VARCHAR(64)");
             } catch (Throwable $e1) {
@@ -27,4 +27,5 @@ function conectarBanco() {
     return $pdo;
 }
 ?>
+
 

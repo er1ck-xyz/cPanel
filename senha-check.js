@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const senhaInput = document.getElementById("senha");
 
-  // Cria container do indicador
+  
   const wrapper = document.createElement("div");
-  wrapper.className = "password-strength-wrapper hidden"; // começa oculto
+  wrapper.className = "password-strength-wrapper hidden"; 
 
-  // Barra e texto
+  
   const bar = document.createElement("div");
   bar.className = "password-bar";
   const texto = document.createElement("span");
@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   wrapper.appendChild(texto);
   senhaInput.parentNode.insertAdjacentElement("afterend", wrapper);
 
-  // Atualiza indicador
+  
   const render = (senha) => {
     if (!senha) {
-      // campo vazio → esconde tudo
+      
       wrapper.classList.add("hidden");
       bar.style.width = "0%";
       bar.className = "password-bar";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   senhaInput.addEventListener("input", () => render(senhaInput.value));
-  render(senhaInput.value); // estado inicial
+  render(senhaInput.value); 
 });
 
 function avaliarSenha(senha) {
@@ -67,3 +67,4 @@ function avaliarSenha(senha) {
     textColor: "#00e5ff",
   };
 }
+

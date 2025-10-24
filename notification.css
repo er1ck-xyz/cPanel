@@ -1,4 +1,4 @@
-/* ===== Notificações Glass ===== */
+﻿
 .flash-message {
   position: fixed;
   top: 25px;
@@ -93,3 +93,4 @@
     transform: translate(-50%, -10px);
   }
 }
+

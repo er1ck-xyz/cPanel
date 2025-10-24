@@ -4,22 +4,22 @@ require_once 'ip_utils.php';
 require_once 'logger.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Auth
+
 $userSess   = isset($_SESSION['user_data']) && is_array($_SESSION['user_data']) ? $_SESSION['user_data'] : [];
 $usernameRaw = isset($userSess['username']) ? (string)$userSess['username'] : '';
 if (strcasecmp($usernameRaw, 'Administrador') !== 0) { header('Location: dashboard.php'); exit; }
 
-// CSRF
+
 if (empty($_SESSION['csrf_admin'])) $_SESSION['csrf_admin'] = bin2hex(random_bytes(16));
 $csrf = $_SESSION['csrf_admin'];
 
-// Avatar (header)
+
 $avatarDir = __DIR__ . '/uploads/avatars';
 $avatarWeb = 'uploads/avatars';
 $avatarBase = preg_replace('/[^A-Za-z0-9_-]/', '_', $usernameRaw ?: 'user');
 $avatarUrlBust = null; foreach (['jpg','jpeg','png','gif','webp'] as $ext){ $p=$avatarDir.'/'.$avatarBase.'.'.$ext; if(file_exists($p)){ $avatarUrlBust=$avatarWeb.'/'.$avatarBase.'.'.$ext.'?v='.@filemtime($p); break; }}
 
-// Params
+
 $q     = trim((string)($_GET['q'] ?? ''));
 $status= strtolower(trim((string)($_GET['status'] ?? '')));
 $p     = max(1,(int)($_GET['p'] ?? 1));
@@ -27,12 +27,12 @@ $per   = (int)($_GET['per'] ?? 20); if($per<=0)$per=20; if($per>200)$per=200;
 $sort  = trim((string)($_GET['sort'] ?? 'id'));
 $dir   = strtolower(trim((string)($_GET['dir'] ?? 'desc'))) === 'asc' ? 'asc' : 'desc';
 
-// Log helpers
+
 $logDir = __DIR__ . '/storage';
 $logFile = $logDir . '/admin.log'; if (!is_dir($logDir)) { @mkdir($logDir, 0775, true); }
 function admin_log($message){ global $usernameRaw; system_log($usernameRaw ?: 'admin', $message); }
 
-// Query builders (sem filtros de data para simplificar)
+
 function build_where(array &$params,string $search='',string $status=''): string {
   $where=[];
   if($search!==''){ $where[]='(username ILIKE :q OR email ILIKE :q)'; $params[':q']='%'.$search.'%'; }
@@ -50,7 +50,7 @@ function count_users(PDO $pdo,string $search='',string $status=''): int {
   $params=[]; $whereSql=build_where($params,$search,$status); $stmt=$pdo->prepare('SELECT COUNT(*) FROM usuarios'.$whereSql); foreach($params as $k=>$v){$stmt->bindValue($k,$v,PDO::PARAM_STR);} $stmt->execute(); return (int)$stmt->fetchColumn();
 }
 
-// Actions (apenas usuários e logs)
+
 $noticeMsg=null; $noticeOk=null;
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action'])){
   try{
@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action'])){
   }catch(Throwable $e){ $noticeOk=false; $noticeMsg=$e->getMessage(); admin_log('erro: '.$noticeMsg); }
 }
 
-// Query + CSV
+
 $users=[]; $totalUsers=0; $totalPages=1; try{
   $pdoList=conectarBanco(); $off=($p-1)*$per;
   if(isset($_GET['export']) && $_GET['export']==='csv'){
@@ -323,3 +323,4 @@ $users=[]; $totalUsers=0; $totalPages=1; try{
 </body>
 
 </html>
+

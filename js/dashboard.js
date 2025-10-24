@@ -1,4 +1,4 @@
-// Marca link ativo no menu lateral
+﻿
 (function markActiveLink() {
   const current = location.pathname.replace(/\/$/, "");
   document.querySelectorAll(".sidebar-menu a").forEach((link) => {
@@ -9,7 +9,7 @@
   });
 })();
 
-// Toggle da sidebar para mobile + overlay
+
 (function sidebarMobile() {
   const btn = document.getElementById("mobileMenuButton");
   const sidebar = document.getElementById("sidebar");
@@ -31,7 +31,7 @@
   overlay.addEventListener("click", close);
 })();
 
-// Dropdown do usuário
+
 (function userDropdown() {
   const btn = document.getElementById("userMenuButton");
   const dd = document.getElementById("userDropdown");
@@ -50,7 +50,7 @@
   });
 })();
 
-// Acessibilidade: Enter/Space ativa cards (anchors já são focáveis, mas mantemos para botões futuros)
+
 document.querySelectorAll(".consultation-card").forEach((el) => {
   el.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -59,3 +59,4 @@ document.querySelectorAll(".consultation-card").forEach((el) => {
     }
   });
 });
+

@@ -1,4 +1,4 @@
-/* Configuração personalizada - Glass Tech Azul */
+﻿
 particlesJS("particles-js", {
   particles: {
     number: {
@@ -33,3 +33,4 @@ particlesJS("particles-js", {
   },
   retina_detect: true,
 });
+

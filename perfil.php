@@ -1,5 +1,5 @@
 ﻿<?php
-// perfil.php — exibe perfil com IP público, assinaturas e dados do banco
+
 require 'keyauth.php';
 require 'credentials.php';
 require 'database.php';
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_data']) || !isset($_SESSION['sessionid'])) {
     exit;
 }
 
-/* === FUNÇÕES === */
+
 function read_value($arr, $key, $default = null) {
     if (is_array($arr) && array_key_exists($key, $arr)) return $arr[$key];
     if (is_object($arr) && property_exists($arr, $key)) return $arr->$key;
@@ -34,7 +34,7 @@ function format_interval_pretty($seconds) {
     return implode(", ", $parts);
 }
 
-/* === IP PÚBLICO REAL === */
+
 function isPrivateIP($ip) {
     return (
         filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false
@@ -63,7 +63,7 @@ function getPublicIP() {
 }
 $ipAddr = htmlspecialchars(getPublicIP());
 
-/* === DADOS KEYAUTH === */
+
 $payload = [
     'type' => 'userdata',
     'sessionid' => $_SESSION['sessionid'],
@@ -87,7 +87,7 @@ else {
     $_SESSION['user_data'] = $user;
 }
 
-/* === ASSINATURAS === */
+
 $subs = read_value($user, 'subscriptions', []);
 $planNameBest = 'Sem assinatura';
 $bestExpiryTs = 0;
@@ -114,13 +114,13 @@ $daysLeft = $bestExpiryTs > $now ? ceil(($bestExpiryTs - $now) / 86400) : 0;
 $expiryDate = $bestExpiryTs ? date('d/m/Y H:i', $bestExpiryTs) : '—';
 $prettyLeft = $bestExpiryTs > $now ? format_interval_pretty($bestExpiryTs - $now) : 'Expirado';
 
-/* === USUÁRIO === */
+
 $usernameRaw = read_value($user, 'username', '');
 $username = htmlspecialchars($usernameRaw ?: 'Usuário');
 $createdFmt = ($t = as_timestamp(read_value($user, 'createdate'))) ? date('d/m/Y H:i', $t) : '—';
 $lastLogFmt = ($t = as_timestamp(read_value($user, 'lastlogin'))) ? date('d/m/Y H:i', $t) : '-';
 
-/* === AVATAR (upload simples por usu�rio) === */
+
 $avatarDir = __DIR__ . '/uploads/avatars';
 $avatarWeb = 'uploads/avatars';
 $avatarBase = preg_replace('/[^A-Za-z0-9_-]/', '_', $usernameRaw ?: 'user');
@@ -132,14 +132,14 @@ $allowedMime = [
 ];
 $avatarPath = null; $avatarUrl = null; $avatarUrlBust = null; $uploadMessage = null; $uploadOk = false;
 
-// procura arquivo j� salvo
+
 foreach ($allowedMime as $ext) {
     $p = $avatarDir . '/' . $avatarBase . '.' . $ext;
     if (file_exists($p)) { $avatarPath = $p; $avatarUrl = $avatarWeb . '/' . $avatarBase . '.' . $ext; break; }
 }
 if ($avatarPath) { $avatarUrlBust = $avatarUrl . '?v=' . @filemtime($avatarPath); }
 
-// trata upload
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_avatar' && isset($_FILES['avatar'])) {
     try {
         if (!is_dir($avatarDir)) @mkdir($avatarDir, 0775, true);
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $ext = $allowedMime[$mime] ?? null;
         if (!$ext) throw new Exception('Formato n�o suportado. Use JPG, PNG, GIF ou WEBP.');
 
-        // remove antigos
+        
         foreach ($allowedMime as $e) {
             $old = $avatarDir . '/' . $avatarBase . '.' . $e;
             if (file_exists($old)) @unlink($old);
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $dest = $avatarDir . '/' . $avatarBase . '.' . $ext;
         if (!@move_uploaded_file($tmp, $dest)) throw new Exception('N�o foi poss�vel salvar o arquivo.');
 
-        // pós-processamento: recorte central e resize 256x256
+        
         try {
             $srcImg2 = null;
             switch ($mime) {
@@ -203,9 +203,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 }
                 imagedestroy($dstImg2); imagedestroy($srcImg2);
             }
-        } catch (Throwable $e) { /* ignore pós-processamento */ }
+        } catch (Throwable $e) {  }
 
-        // sucesso
+        
         $avatarPath = $dest;
         $avatarUrl = $avatarWeb . '/' . $avatarBase . '.' . $ext;
         $avatarUrlBust = $avatarUrl . '?v=' . @filemtime($avatarPath);
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// remover avatar
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'remove_avatar') {
     try {
         $removed = false;
@@ -234,16 +234,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-/* === BANCO === */
+
 $dbDisplay = [];
 try {
     if ($usernameRaw) {
         $pdo = conectarBanco();
-        // Atualiza último login toda vez que o usuário entra
+        
         $pdo->prepare("UPDATE usuarios SET ultimo_login = NOW() WHERE username = :u")
             ->execute([':u' => $usernameRaw]);
 
-        // Busca dados atualizados
+        
         $stmt = $pdo->prepare("
             SELECT id, username, email, key_usada, status_key, data_registro, ultimo_login 
             FROM usuarios WHERE username = :u LIMIT 1
@@ -253,7 +253,7 @@ try {
     }
 } catch (Throwable $e) {}
 
-/* === MODO ADMINISTRADOR === */
+
 $isAdmin = strcasecmp($usernameRaw, 'Administrador') === 0;
 if ($isAdmin) {
     $usernameDisplay = '<span style="color:#ff4d4f">Administrador</span>';
@@ -293,7 +293,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-    /* Avatar imagem e upload */
+    
     .avatar-xl { position: relative; overflow: hidden; }
     .avatar-xl .avatar-img { width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block; }
     .avatar-upload { margin-top: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -302,15 +302,15 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
     .file-pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); cursor: pointer; }
     .file-pill:hover { box-shadow: 0 6px 18px rgba(58,123,213,0.12); border-color: rgba(58,123,213,0.35); }
     .file-label-text { opacity: 0.9; }
-    .btn-upload { border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.08); color: #e9f0fb; padding: 8px 12px; border-radius: 8px; font-weight: 600; }
+    .btn-upload { border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.08); color: 
     .btn-upload:hover { box-shadow: 0 6px 18px rgba(58,123,213,0.12); border-color: rgba(58,123,213,0.35); }
-    .btn-remove { border: 1px solid rgba(239,68,68,0.35); background: rgba(239,68,68,0.12); color: #fecaca; padding: 8px 12px; border-radius: 8px; font-weight: 700; }
+    .btn-remove { border: 1px solid rgba(239,68,68,0.35); background: rgba(239,68,68,0.12); color: 
     .btn-remove:hover { box-shadow: 0 6px 18px rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.55); }
     .upload-msg { font-size: 0.85rem; opacity: 0.9; }
-    .upload-msg.ok { color: #16a34a; }
-    .upload-msg.err { color: #ef4444; }
+    .upload-msg.ok { color: 
+    .upload-msg.err { color: 
 
-    /* ===== Ajuste de responsividade para perfis ===== */
+    
     @media (max-width: 768px) {
         .profile-grid {
             display: flex;
@@ -362,7 +362,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
             font-size: 0.9rem;
         }
 
-        /* Mobile: paineis empilhados, todos visíveis */
+        
         .profile-grid .panel { display: block; }
     }
     </style>
@@ -457,7 +457,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
                 
 
                 <div class="profile-grid">
-                    <!-- ABA 1: INFORMAÇÕES DO USUÁRIO -->
+                    
                     <div class="panel">
                         <div class="panel-title"><i class="fa-solid fa-user"></i><span>Informações do Usuário</span>
                         </div>
@@ -485,7 +485,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
                         </div>
                     </div>
 
-                    <!-- ABA 2: ASSINATURA -->
+                    
                     <div class="panel">
                         <div class="panel-title"><i class="fa-solid fa-crown"></i><span>Assinatura</span></div>
                         <div class="kv">
@@ -516,7 +516,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
                         </div>
                     </div>
 
-                    <!-- ABA 3: DADOS DO BANCO -->
+                    
                     <div class="panel">
                         <div class="panel-title"><i class="fa-solid fa-database"></i><span>Dados (banco)</span></div>
                         <div class="kv">
@@ -549,7 +549,7 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
                         </div>
                     </div>
 
-                    <!-- ABA 4: SISTEMA -->
+                    
                     <div class="panel">
                         <div class="panel-title"><i class="fa-solid fa-microchip"></i><span>Sistema</span></div>
                         <div class="kv">
@@ -594,3 +594,4 @@ $hwid = $hwidRaw ? htmlspecialchars($hwidRaw) : '';
 </body>
 
 </html>
+

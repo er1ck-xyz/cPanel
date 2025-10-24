@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'seller_api.php';
 require_once 'logger.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
@@ -10,7 +10,7 @@ if (strcasecmp($usernameRaw, 'Administrador') !== 0) { header('Location: dashboa
 if (empty($_SESSION['csrf_admin'])) $_SESSION['csrf_admin'] = bin2hex(random_bytes(16));
 $csrf = $_SESSION['csrf_admin'];
 
-// Avatar helper for header
+
 $avatarDir = __DIR__ . '/uploads/avatars';
 $avatarWeb = 'uploads/avatars';
 $avatarBase = preg_replace('/[^A-Za-z0-9_-]/', '_', $usernameRaw ?: 'user');
@@ -49,14 +49,14 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action']) && $_POST['act
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
     <style>
-    /* === PATCH: alinhar Expiração (dias) === */
+    
     :root {
         --control-h: 42px;
     }
 
-    /* deixe 38–44px a gosto */
+    
 
-    /* Garante que todos os campos tenham a mesma altura e alinhamento */
+    
     .form-grid {
         align-items: start;
     }
@@ -83,10 +83,10 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action']) && $_POST['act
     .field .control.with-bg input[type="text"] {
         height: 100%;
         line-height: 1;
-        /* evita “saltar” para cima */
+        
     }
 
-    /* Bloco “Rápido” logo abaixo do input */
+    
     .quick-select {
         margin-top: 8px;
     }
@@ -111,7 +111,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action']) && $_POST['act
         padding: 0 12px;
         line-height: 1;
         vertical-align: middle;
-        /* impede ficar “um pouco acima” */
+        
         border-radius: 8px;
         cursor: pointer;
     }
@@ -120,7 +120,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action']) && $_POST['act
         outline: 2px solid rgba(255, 255, 255, .15);
     }
 
-    /* Responsivo: empilha bem em telas menores */
+    
     @media (max-width: 900px) {
         .form-grid {
             grid-template-columns: 1fr !important;
@@ -311,7 +311,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['action']) && $_POST['act
             });
         }
 
-        // quick-select for expiry days
+        
         const expiryInput = document.querySelector('input[name="expiry"]');
         const segBtns = document.querySelectorAll('.seg-btn[data-days]');
 

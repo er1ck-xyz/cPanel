@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require 'keyauth.php';
 require 'credentials.php';
 require 'database.php';
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     ob_end_clean();
 
     if ($ok) {
-        // IP do cliente (prefere público informado pelo navegador) e IP do KeyAuth
+        
         $postedIp = normalize_ip((string)($_POST['public_ip'] ?? ''));
         $clientIp = (filter_var($postedIp, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) ? $postedIp : client_ip();
         $keyauthIp = $KeyAuthApp->user_data->ip ?? '';
 
-        // Detecta mudança de IP e atualiza
+        
         try {
             $pdo->prepare('UPDATE usuarios SET ultimo_login = NOW() WHERE username = :u')->execute([':u'=>$username]);
             $oldIp = (string)($user['ip'] ?? '');
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $pdo->prepare('UPDATE usuarios SET ip = :ip WHERE username = :u')->execute([':ip'=>$clientIp, ':u'=>$username]);
                 system_log($username, 'ip_change ' . ($oldIp !== '' ? ($oldIp . ' => ') : '') . $clientIp . ($keyauthIp ? (' (keyauth=' . $keyauthIp . ')') : ''));
             }
-        } catch (Throwable $e) { /* ignore */ }
+        } catch (Throwable $e) {  }
 
         $_SESSION['user_data'] = [
             'username'      => $KeyAuthApp->user_data->username ?? $username,
@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         top: -60px;
         left: 50%;
         transform: translateX(-50%);
-        background: #1f1f1f;
-        color: #fff;
+        background: 
+        color: 
         border-radius: 6px;
         padding: 10px 18px;
         font-family: "Poppins", sans-serif;
@@ -143,8 +143,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     }
 
-    /* === Loader === */
-    #auth-overlay {
+    
+    
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, .6);
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     }
 
-    /* ===== Efeito nos links ===== */
+    
     a {
         position: relative;
         color: rgba(233, 240, 251, 0.8);
@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 
     a:hover {
-        color: #00eaff;
+        color: 
         text-shadow: 0 0 6px rgba(0, 210, 255, 0.7);
         transform: translateY(-1px);
     }
@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         width: 100%;
     }
 
-    /* ===== Botão de visualizar senha ===== */
+    
     .toggle-pass {
         background: transparent;
         border: none;
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         gap: 8px;
         font-family: "Poppins", sans-serif;
         font-weight: 600;
-        color: #fff;
+        color: 
         padding: 10px 20px;
         border-radius: 8px;
         border: none;
@@ -254,26 +254,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     .btn svg {
         width: 18px;
         height: 18px;
-        stroke: #fff;
+        stroke: 
         transition: transform 0.2s ease;
     }
 
-    /* Efeito hover */
+    
     .btn:hover svg {
         transform: translateX(3px);
     }
 
-    /* Botão azul (Entrar) */
+    
     .btn-login {
-        background: linear-gradient(90deg, #007bff, #0056d8);
+        background: linear-gradient(90deg, 
     }
 
-    /* Botão verde (Criar conta) */
+    
     .btn-register {
-        background: linear-gradient(90deg, #009d5c, #00b874);
+        background: linear-gradient(90deg, 
     }
 
-    /* Efeito hover */
+    
     .btn:hover {
         transform: scale(1.03);
         box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
@@ -377,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     const form = document.getElementById('loginForm');
     const overlay = document.getElementById('auth-overlay');
 
-    // ======== Alternar visualização da senha ========
+    
     document.querySelectorAll('.toggle-pass').forEach(btn => {
         const input = btn.parentElement.querySelector('input');
         btn.style.display = 'none';
@@ -398,7 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         });
     });
 
-    // ======== Login AJAX ========
+    
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const nome = form.nome.value.trim();
@@ -406,7 +406,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         if (!nome || !senha) return showNotification("Preencha todos os campos.");
         overlay.style.display = 'flex';
         const fd = new FormData(form);
-        // Captura IP público e, em seguida, envia o login
+        
         const getIp = window.__publicIP
           ? Promise.resolve(window.__publicIP)
           : fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(j=>j&&j.ip).catch(()=>null);
@@ -432,3 +432,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 </body>
 
 </html>
+

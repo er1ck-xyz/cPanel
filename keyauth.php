@@ -1,20 +1,12 @@
-<?php
-/*
-* KEYAUTH.CC PHP EXAMPLE
-*
-* Edit credentials.php file and enter name & ownerid from https://keyauth.cc/app
-*
-* READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-PHP-Example#keyauthapp-instance-definition
-*
-*/
+﻿<?php
+
 namespace KeyAuth;
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-/*error_reporting(E_ALL);
-ini_set('display_errors', 1); You can use this code for better error handling - recommended for local testing only*/
+
 
 class api
 {
@@ -30,7 +22,7 @@ class api
     function init()
     {
         if ($this->name == "" || strlen($this->ownerid) != 10) {
-            die("Go to <a href=\"https://keyauth.cc/app/\" target=\"blank\">https://keyauth.cc/app/</a> and click the <b>PHP</b> button in the App credentials code. Copy that & paste in <code style=\"background-color: #eee;border-radius: 3px;font-family: courier, monospace;padding: 0 3px;\">credentials.php</code>");
+            die("Go to <a href=\"https:
         }
 
         $data = array(
@@ -42,13 +34,13 @@ class api
         $response = $this->req($data);
 
         if ($response == "KeyAuth_Invalid") {
-            die("Go to <a href=\"https://keyauth.cc/app/\" target=\"blank\">https://keyauth.cc/app/</a> and click the <b>PHP</b> button in the App credentials code. Copy that & paste in <code style=\"background-color: #eee;border-radius: 3px;font-family: courier, monospace;padding: 0 3px;\">credentials.php</code>");
+            die("Go to <a href=\"https:
         }
 
         $json = json_decode($response);
 
         if ($json->message == "This program hash does not match, make sure you're using latest version") {
-            die("You must disable hash check at <a href=\"https://keyauth.cc/app/?page=app-settings\" target=\"blank\">https://keyauth.cc/app/?page=app-settings</a>");
+            die("You must disable hash check at <a href=\"https:
         }
 
         if (!$json->success)
@@ -84,7 +76,7 @@ class api
         if ($json->success){
             echo "<script>alert('2FA has been successfully disabled!');</script>";
         } else {
-            // Wait 3 seconds and then exit with error code 1
+            
             sleep(3);
             exit(1);
         }
@@ -106,7 +98,7 @@ class api
             die("JSON decode error: " . json_last_error_msg());
         }
         
-        // Update session id if provided by the API
+        
         if (isset($json->sessionid)) {
             $_SESSION['sessionid'] = $json->sessionid;
         }
@@ -241,7 +233,7 @@ class api
             $this->error($json->message);
         }
 
-        // don't allow them to dashboard yet, upgrade doesn't require password so they need to login after register
+        
 
         return $json->success;
     }

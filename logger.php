@@ -1,6 +1,6 @@
-<?php
-// LOGGER COMPARTILHADO
-// Uso: system_log($actor, $message)
+﻿<?php
+
+
 
 if (!function_exists('system_log')) {
     function system_log($actor, $message) {
@@ -13,9 +13,10 @@ if (!function_exists('system_log')) {
             $line = date('Y-m-d H:i:s') . ' [' . ($actor !== '' ? $actor : 'system') . '] ' . $message . PHP_EOL;
             @file_put_contents($file, $line, FILE_APPEND);
         } catch (Throwable $e) {
-            // Silencia para não quebrar o fluxo principal
+            
         }
     }
 }
 ?>
+
 

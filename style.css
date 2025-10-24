@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg1: #0f2027;
   --bg2: #203a43;
   --accent1: #00d2ff;
@@ -7,14 +7,14 @@
   --glass: rgba(255, 255, 255, 0.06);
 }
 
-/* ===== Reset ===== */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ===== Base ===== */
+
 html,
 body {
   height: 100%;
@@ -26,7 +26,7 @@ body {
   -webkit-overflow-scrolling: none;
 }
 
-/* ===== Fundo e Centralização ===== */
+
 body {
   position: fixed;
   inset: 0;
@@ -47,7 +47,7 @@ body {
   touch-action: none;
 }
 
-/* ===== Compatibilidade iOS ===== */
+
 @supports (-webkit-touch-callout: none) {
   html,
   body {
@@ -56,7 +56,7 @@ body {
   }
 }
 
-/* ===== Fundo animado fixo ===== */
+
 #particles-js {
   position: fixed;
   top: 0;
@@ -67,7 +67,7 @@ body {
   pointer-events: none;
 }
 
-/* ===== Container ===== */
+
 .container {
   display: flex;
   justify-content: center;
@@ -76,10 +76,10 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   position: relative;
   z-index: 1;
-  padding: 10px 0; /* equilíbrio visual superior e inferior */
+  padding: 10px 0; 
 }
 
-/* ===== Animação ===== */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -93,7 +93,7 @@ body {
   }
 }
 
-/* ===== Card ===== */
+
 .card {
   animation: fadeInUp 1s ease forwards;
   width: 100%;
@@ -152,7 +152,7 @@ form {
   gap: 14px;
 }
 
-/* ===== Inputs ===== */
+
 .input-group {
   background: rgba(255, 255, 255, 0.02);
   border-radius: 10px;
@@ -194,7 +194,7 @@ input[type="email"] {
   padding: 6px 0;
 }
 
-/* ===== Botões ===== */
+
 .actions {
   display: flex;
   gap: 8px;
@@ -228,7 +228,7 @@ input[type="email"] {
   opacity: 0.96;
 }
 
-/* ===== Checkbox ===== */
+
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
@@ -266,7 +266,7 @@ input[type="checkbox"]:checked::after {
   transform: rotate(45deg);
 }
 
-/* ===== Responsividade ===== */
+
 @media (max-width: 768px) {
   body {
     padding: 16px;
@@ -349,9 +349,9 @@ input[type="checkbox"]:checked::after {
   display: none;
 }
 
-/* ===== RESPONSIVIDADE MELHORADA ===== */
 
-/* Celulares pequenos (até 480px) */
+
+
 @media (max-width: 480px) {
   .card {
     width: 92%;
@@ -410,7 +410,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* Tablets (481px até 768px) */
+
 @media (min-width: 481px) and (max-width: 768px) {
   .card {
     width: 85%;
@@ -436,7 +436,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* Monitores grandes (a partir de 1400px) */
+
 @media (min-width: 1400px) {
   .card {
     max-width: 500px;
@@ -481,7 +481,7 @@ input[type="checkbox"]:checked::after {
   text-decoration: underline;
 }
 
-/* ===== Ajuste reCAPTCHA ===== */
+
 .g-recaptcha {
   margin-top: 14px;
   transform: none;
@@ -489,7 +489,7 @@ input[type="checkbox"]:checked::after {
   justify-content: center;
 }
 
-/* ===== Correção de rolagem ===== */
+
 html,
 body {
   overflow: auto !important;
@@ -499,7 +499,7 @@ body {
   position: relative;
 }
 
-/* ===== Ajustes finos mobile ===== */
+
 @media (max-width: 480px) {
   .card {
     width: 94%;
@@ -551,7 +551,7 @@ body {
   }
 }
 
-/* Tablets (481–768px) */
+
 @media (min-width: 481px) and (max-width: 768px) {
   .card {
     width: 88%;
@@ -561,3 +561,4 @@ body {
     justify-content: flex-start;
   }
 }
+

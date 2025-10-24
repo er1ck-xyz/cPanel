@@ -1,8 +1,8 @@
-<?php
-// recaptcha.php — verificação do reCAPTCHA v3 (baseado em score)
+﻿<?php
+
 function verifyRecaptcha($token)
 {
-    $secretKey = "6LfhAfArAAAAAP_rp80q2Y2h_0EsBVpN7DQul-r3"; // 🔐 sua chave secreta v3
+    $secretKey = "6LfhAfArAAAAAP_rp80q2Y2h_0EsBVpN7DQul-r3"; 
     $url = "https://www.google.com/recaptcha/api/siteverify";
 
     $data = [
@@ -23,7 +23,7 @@ function verifyRecaptcha($token)
     $response = file_get_contents($url, false, $context);
     $result   = json_decode($response, true);
 
-    // ✅ ReCAPTCHA v3 usa "score" para avaliar comportamento (>= 0.5 = humano)
+    
     if (!empty($result['success']) && isset($result['score']) && $result['score'] >= 0.5) {
         return ['success' => true, 'score' => $result['score']];
     } else {
@@ -35,7 +35,7 @@ function verifyRecaptcha($token)
     }
 }
 
-// Opcional: permite testar enviando POST manualmente
+
 if (basename($_SERVER['PHP_SELF']) === 'recaptcha.php') {
     header('Content-Type: application/json; charset=utf-8');
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

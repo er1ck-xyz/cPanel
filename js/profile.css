@@ -1,16 +1,16 @@
-/* Profile page: fresh, responsive layout */
+﻿
 :root {
   --glass-bg-1: rgba(255, 255, 255, 0.06);
   --glass-bg-2: rgba(255, 255, 255, 0.03);
 }
 
-/* Wrapper spacing within .page */
+
 .profile-section {
   display: grid;
   gap: 16px;
 }
 
-/* Hero header */
+
 .profile-hero {
   display: grid;
   grid-template-columns: 72px 1fr;
@@ -89,7 +89,7 @@
 .badge.days { color: #16a34a; border-color: rgba(22, 163, 74, 0.25); }
 .badge.expire { color: #f59e0b; border-color: rgba(245, 158, 11, 0.25); }
 
-/* Grid of panels */
+
 .profile-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -123,7 +123,7 @@
   place-items: center;
 }
 
-/* Key/value rows */
+
 .kv {
   display: grid;
   gap: 8px;
@@ -139,7 +139,7 @@
 .kv-label { color: rgba(233, 240, 251, 0.8); }
 .kv-value { font-weight: 600; }
 
-/* Subscription timeline */
+
 .subs-timeline {
   position: relative;
   display: grid;
@@ -171,8 +171,9 @@
 .subs-item .name { font-weight: 700; }
 .subs-item .meta { color: rgba(233, 240, 251, 0.8); }
 
-/* Utility */
+
 .muted { color: rgba(233, 240, 251, 0.75); }
 
-/* Hide old grid on this page */
+
 .consultations { display: none !important; }
+

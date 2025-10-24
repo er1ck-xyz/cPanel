@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 function rememberUser($username) {
     $token = bin2hex(random_bytes(32));
-    setcookie('remember_token', $token, time() + (86400 * 7), "/", "", false, true); // 7 dias
+    setcookie('remember_token', $token, time() + (86400 * 7), "/", "", false, true); 
     file_put_contents(__DIR__ . '/remember.json', json_encode([
         'username' => $username,
         'token' => $token,

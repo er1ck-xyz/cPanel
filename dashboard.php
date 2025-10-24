@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Avatar helper: detect uploaded avatar for current user
+
 $userSess = isset($_SESSION['user_data']) ? $_SESSION['user_data'] : [];
 $usernameRaw = is_array($userSess) && isset($userSess['username']) ? $userSess['username'] : '';
 $isAdmin = strcasecmp($usernameRaw, 'Administrador') === 0;
@@ -41,11 +41,11 @@ if ($usernameRaw) {
 </head>
 
 <body class="dashboard">
-    <!-- Overlay para mobile -->
+    
     <div class="overlay" id="sidebarOverlay"></div>
     <div id="particles-js"></div>
 
-    <!-- Sidebar -->
+    
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <div class="brand-logo"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -87,9 +87,9 @@ if ($usernameRaw) {
         </ul>
     </aside>
 
-    <!-- ConteÃºdo principal -->
+    
     <div class="main-content">
-        <!-- Header sticky -->
+        
         <header class="header">
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
                 <i class="fa-solid fa-bars"></i>
@@ -127,7 +127,7 @@ if ($usernameRaw) {
             </div>
         </header>
 
-        <!-- Cabeçalho da Página + busca -->
+        
         <main class="page">
             <div class="page-head">
                 <div class="titles">
@@ -140,7 +140,7 @@ if ($usernameRaw) {
                 </div>
             </div>
 
-            <!-- Grid de consultas -->
+            
             <section class="consultations">
                 <h3 class="category-title">Modulos de Consulta</h3>
                 <div class="consultations-grid">
@@ -280,3 +280,4 @@ if ($usernameRaw) {
 </body>
 
 </html>
+

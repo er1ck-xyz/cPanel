@@ -1,4 +1,4 @@
-/* Minimal styles for Admin page */
+﻿
 .admin-card {
   padding: 16px;
   border-radius: 12px;
@@ -9,7 +9,7 @@
   );
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
-/* Licenses: elevated glass card with subtle glow */
+
 .license-card {
   position: relative;
   overflow: hidden;
@@ -204,7 +204,7 @@ table.admin-table th {
 .pill-control::placeholder {
   color: rgba(233, 240, 251, 0.7);
 }
-/* Form layout + controls (licenses) */
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
@@ -221,12 +221,12 @@ table.admin-table th {
 .control:focus-within { border-color: rgba(0,210,255,.5); box-shadow: 0 0 0 3px rgba(0,210,255,.12); }
 .hint { font-size: .85rem; opacity: .8; }
 
-/* presets row */
+
 .preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .preset { padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); cursor: pointer; font-size: .85rem; }
 .preset:hover { border-color: rgba(0,210,255,.45); }
 
-/* segmented quick-select for expiry */
+
 .quick-select { margin-top: 6px; display: flex; align-items: center; gap: 8px; }
 .quick-select .label { font-size: .85rem; opacity: .8; }
 .seg { display: inline-flex; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; overflow: hidden; }
@@ -234,13 +234,13 @@ table.admin-table th {
 .seg button + button { border-left: 1px solid rgba(255,255,255,.08); }
 .seg button.active { background: linear-gradient(180deg, rgba(0,210,255,.28), rgba(0,210,255,.16)); color: #001219; }
 
-/* results */
+
 .license-card .result-box { margin-top: 16px; }
 .license-card .result-box label { display:block; margin-bottom:6px; font-weight:700; }
 .license-card .result-box textarea { border-radius: 10px; background: rgba(0,0,0,.35); color: #e9f0fb; border: 1px solid rgba(255,255,255,.12); padding: 10px; font-family: ui-monospace, Menlo, Consolas, monospace; }
 .license-card .result-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
 
-/* Copy toast */
+
 .toast {
   position: fixed; right: 16px; bottom: 18px; z-index: 9999;
   background: rgba(16,185,129,.18); color: #bbf7d0; border: 1px solid rgba(16,185,129,.45);
@@ -441,7 +441,7 @@ table.admin-table th {
   }
 }
 
-/* Toolbar tweaks and table polish */
+
 .filters-row .btn-sm { display: inline-flex; align-items: center; gap: 8px; }
 .filters-row .btn-sm[type="submit"] {
   background: linear-gradient(180deg, rgba(0,210,255,0.25), rgba(0,210,255,0.12));
@@ -467,3 +467,4 @@ table.admin-table tbody tr:hover {
 .op-section { border-top: 1px solid rgba(255,255,255,.08); padding-top: 12px; margin-top: 12px; }
 .op-section:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
 .op-section h3 { margin: 0 0 8px 0; font-size: 1.05rem; }
+

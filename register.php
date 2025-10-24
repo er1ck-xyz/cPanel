@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 require 'keyauth.php';
 require 'credentials.php';
 require 'database.php';
 require 'logger.php';
 require 'ip_utils.php';
-require 'recaptcha.php'; // inclui verificação reCAPTCHA
+require 'recaptcha.php'; 
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -21,9 +21,9 @@ if (isset($_POST['register'])) {
     $email    = trim($_POST['email'] ?? '');
     $license  = trim($_POST['key'] ?? '');
     $token    = $_POST['g-recaptcha-response'] ?? '';
-    $terms    = isset($_POST['agreeTerms']); // ✅ novo campo
+    $terms    = isset($_POST['agreeTerms']); 
 
-    // ===== Validação =====
+    
     if ($username === '' || $password === '' || $email === '' || $license === '') {
         $flash = ['type' => 'error', 'msg' => '⚠️ Preencha todos os campos!'];
     } elseif (!$terms) {
@@ -34,7 +34,7 @@ if (isset($_POST['register'])) {
         if (empty($captcha['success']) || $captcha['score'] < 0.5) {
             $flash = ['type' => 'error', 'msg' => '⚠️ Falha na verificação do reCAPTCHA.'];
         } else {
-            // ===== Registro via KeyAuth =====
+            
             $data = [
                 "type"      => "register",
                 "username"  => $username,
@@ -69,7 +69,7 @@ if (isset($_POST['register'])) {
                         throw new Exception('⚠️ Usuário ou e-mail já cadastrado.');
                     }
 
-                    // ✅ Agora também grava criado_em e ultimo_login
+                    
                     $sql = "INSERT INTO usuarios (
                                 username, email, senha_hash, key_usada, status_key,
                                 data_registro, criado_em, ultimo_login
@@ -86,7 +86,7 @@ if (isset($_POST['register'])) {
                         ':k' => $license
                     ]);
 
-                    // Atualiza IP e registra em log (prefere IP público enviado pelo navegador)
+                    
                     $ipClient = normalize_ip((string)($_POST['public_ip'] ?? ''));
                     if (!filter_var($ipClient, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
                         $ipClient = client_ip();
@@ -128,7 +128,7 @@ if (isset($_POST['register'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="notification.css">
     <style>
-    /* ===== Efeito nos links ===== */
+    
     a {
         position: relative;
         color: rgba(233, 240, 251, 0.8);
@@ -150,7 +150,7 @@ if (isset($_POST['register'])) {
     }
 
     a:hover {
-        color: #00eaff;
+        color: 
         text-shadow: 0 0 6px rgba(0, 210, 255, 0.7);
         transform: translateY(-1px);
     }
@@ -284,9 +284,9 @@ if (isset($_POST['register'])) {
     <script src="js/particles-config.js"></script>
     <script src="senha-check.js"></script>
 
-    <!-- ✅ reCAPTCHA v3 invisível -->
+    
     <script>
-    // Captura IP p�blico para envio junto ao formul�rio
+    
     (function() {
         const el = document.getElementById('public_ip_reg');
         fetch('https://api.ipify.org?format=json')
