@@ -1,0 +1,75 @@
+# Secrets and environment files
+.env
+.env.*
+*.env
+*.env.*
+!*.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+secrets/
+secret*/
+credentials.*
+*.credentials
+config/local.*
+config/secrets.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Caches and temp
+.cache/
+cache/
+tmp/
+temp/
+*.tmp
+
+# Node.js
+node_modules/
+dist/
+build/
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+.vercel/
+.vite/
+.turbo/
+
+# PHP / Composer
+vendor/
+composer.phar
+
+# Python (just in case)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Coverage
+coverage/
+.coverage*
+.nyc_output/
+
+# IDE & OS files
+.idea/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+

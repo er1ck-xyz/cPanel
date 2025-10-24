@@ -1,0 +1,95 @@
+/* ===== Notificações Glass ===== */
+.flash-message {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  animation: fadeSlide 0.5s ease forwards;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 90%;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.flash-success {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 153, 0.2),
+    rgba(0, 204, 102, 0.15)
+  );
+  border-left: 5px solid #00ffcc;
+}
+
+.flash-error {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 82, 82, 0.25),
+    rgba(255, 23, 68, 0.15)
+  );
+  border-left: 5px solid #ff4b4b;
+}
+
+.flash-warning {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 200, 0, 0.25),
+    rgba(255, 165, 0, 0.15)
+  );
+  border-left: 5px solid #ffcc00;
+}
+
+.flash-message svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}
